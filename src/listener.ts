@@ -1,8 +1,11 @@
 import nats, { Message } from "node-nats-streaming";
+import { randomBytes } from "crypto";
 
 console.clear(); // Note: Clear the terminal
 
-const stan = nats.connect("ticketing", "123", { url: "http://localhost:4222" });
+const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
+  url: "http://localhost:4222"
+}); // Remark: Generated random client ID because NATS accepts only one connection per client ID
 
 stan.on("connect", () => {
   console.log("Listener connected to NATS");
