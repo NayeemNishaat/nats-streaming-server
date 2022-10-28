@@ -10,7 +10,10 @@ const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
 stan.on("connect", () => {
   console.log("Listener connected to NATS");
 
-  const subscription = stan.subscribe("ticket:created");
+  const subscription = stan.subscribe(
+    "ticket:created", // Note: Channel/Topic name
+    "orders-service-queue-group" // Important: Queue group is kind of load-balancing. So that multiple services can be the member of same queue group of a topic/channel, but only one of them will receive the event of the queue group.
+  );
 
   subscription.on("message", (msg: Message) => {
     const data = msg.getData();
