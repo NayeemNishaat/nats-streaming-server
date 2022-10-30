@@ -70,7 +70,7 @@ abstract class Listener {
       this.queueGroupName,
       this.subscriptionOptions()
     );
-    console.log(subscription);
+
     subscription.on("message", (msg: Message) => {
       console.log(`Message received: ${this.subject} / ${this.queueGroupName}`);
 
@@ -92,9 +92,6 @@ class TicketCreatedListener extends Listener {
   subject = "ticked:created";
   queueGroupName = "payments-service";
 
-  constructor(client: Stan) {
-    super(client);
-  }
   onMessage(data: any, msg: Message) {
     console.log("Event data!", data);
 
