@@ -89,7 +89,7 @@ abstract class Listener {
 }
 
 class TicketCreatedListener extends Listener {
-  subject = "ticked:created";
+  subject = "ticket:created";
   queueGroupName = "payments-service";
 
   onMessage(data: any, msg: Message) {
